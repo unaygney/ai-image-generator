@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react'
 
-type Props = React.SVGProps<SVGSVGElement>;
+type Props = React.SVGProps<SVGSVGElement>
 
 export const Logo = ({ ...props }: Props) => (
   <svg
@@ -72,7 +72,7 @@ export const Logo = ({ ...props }: Props) => (
       fillOpacity={0.2}
     />
   </svg>
-);
+)
 export const Hamburger = ({ ...props }: Props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +87,7 @@ export const Hamburger = ({ ...props }: Props) => (
       fill="#E4E4E7"
     />
   </svg>
-);
+)
 export const X = ({ ...props }: Props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +102,7 @@ export const X = ({ ...props }: Props) => (
       fill="#E4E4E7"
     />
   </svg>
-);
+)
 export const Generate = ({ ...props }: Props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +121,7 @@ export const Generate = ({ ...props }: Props) => (
       fill="#E4E4E7"
     />
   </svg>
-);
+)
 export const SignIn = ({ ...props }: Props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -141,4 +141,63 @@ export const SignIn = ({ ...props }: Props) => (
       fillOpacity="0.2"
     />
   </svg>
-);
+)
+export const Feed = ({ ...props }: Props) => (
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <rect width="9" height="9" rx="2" fill="#E4E4E7" />
+    <rect x="11" width="9" height="9" rx="2" fill="#E4E4E7" fillOpacity="0.2" />
+    <rect y="11" width="9" height="9" rx="2" fill="#E4E4E7" fillOpacity="0.2" />
+    <rect
+      x="11"
+      y="11"
+      width="9"
+      height="9"
+      rx="2"
+      fill="#E4E4E7"
+      fillOpacity="0.2"
+    />
+  </svg>
+)
+export const History = ({ ...props }: Props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    {...props}
+  >
+    <circle cx="12" cy="12" r="9" fill="#E4E4E7" fillOpacity="0.25" />
+    <path
+      d="M12 5.3C12 5.15741 12 5.08611 12.0462 5.04182C12.0925 4.99753 12.1616 5.0005 12.2999 5.00643C13.4246 5.05465 14.5226 5.37351 15.5 5.93782C16.5641 6.5522 17.4478 7.43587 18.0622 8.5C18.6766 9.56413 19 10.7712 19 12C19 13.2288 18.6766 14.4359 18.0622 15.5C17.4478 16.5641 16.5641 17.4478 15.5 18.0622C14.4359 18.6766 13.2288 19 12 19C10.7712 19 9.56413 18.6766 8.5 18.0622C7.52259 17.4979 6.69743 16.7064 6.09335 15.7565C6.01906 15.6397 5.98191 15.5813 5.99716 15.5191C6.0124 15.4569 6.07414 15.4213 6.19763 15.35L11.85 12.0866C11.9232 12.0443 11.9598 12.0232 11.9799 11.9884C12 11.9536 12 11.9113 12 11.8268V5.3Z"
+      fill="#E4E4E7"
+    />
+  </svg>
+)
+export const Collection = ({ ...props }: Props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    {...props}
+  >
+    <path
+      d="M3 8C3 7.06812 3 6.60218 3.15224 6.23463C3.35523 5.74458 3.74458 5.35523 4.23463 5.15224C4.60218 5 5.06812 5 6 5H8.34315C9.16065 5 9.5694 5 9.93694 5.15224C10.3045 5.30448 10.5935 5.59351 11.1716 6.17157L13 8V11H3V8Z"
+      fill="#E4E4E7"
+      fillOpacity="0.25"
+    />
+    <path
+      d="M3 11.2C3 10.0799 3 9.51984 3.21799 9.09202C3.40973 8.71569 3.71569 8.40973 4.09202 8.21799C4.51984 8 5.0799 8 6.2 8H17.8C18.9201 8 19.4802 8 19.908 8.21799C20.2843 8.40973 20.5903 8.71569 20.782 9.09202C21 9.51984 21 10.0799 21 11.2V15.8C21 16.9201 21 17.4802 20.782 17.908C20.5903 18.2843 20.2843 18.5903 19.908 18.782C19.4802 19 18.9201 19 17.8 19H6.2C5.0799 19 4.51984 19 4.09202 18.782C3.71569 18.5903 3.40973 18.2843 3.21799 17.908C3 17.4802 3 16.9201 3 15.8V11.2Z"
+      fill="#E4E4E7"
+    />
+  </svg>
+)

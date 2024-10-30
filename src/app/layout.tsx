@@ -32,7 +32,9 @@ export default function RootLayout({
         <div className="flex h-full w-full flex-col md:flex-row">
           <Navbar />
           <Sidebar />
-          <main className="flex-1 overflow-scroll p-6">{children}</main>
+          <main className="flex-1 overflow-scroll px-8 py-[52px] lg:px-[72px]">
+            {children}
+          </main>
         </div>
       </body>
     </html>

@@ -1,9 +1,9 @@
-import { Generate } from '@/components/icons'
+import { Collection, Feed, Generate, History } from '@/components/icons'
 
 export const NAV_LINKS = [
   {
     id: 0,
-    href: '/generate',
+    href: '/',
     label: 'Generate',
     icon: <Generate />,
   },
@@ -11,19 +11,19 @@ export const NAV_LINKS = [
     id: 1,
     href: '/feed',
     label: 'Feed',
-    icon: <Generate />,
+    icon: <Feed />,
   },
   {
     id: 2,
     href: '/history',
     label: 'History',
-    icon: <Generate />,
+    icon: <History />,
   },
   {
     id: 3,
     href: '/collection',
     label: 'Collection',
-    icon: <Generate />,
+    icon: <Collection />,
   },
 ] as const
 
