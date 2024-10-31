@@ -2,7 +2,6 @@
 
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import { useState } from 'react'
-import toast from 'react-hot-toast'
 
 import {
   AlertDialog,
