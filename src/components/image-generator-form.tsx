@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 import { cn, getColorHex } from '@/lib/utils'
 import { type PromptForm, promptFormSchema } from '@/lib/validations'
@@ -19,8 +20,10 @@ import { Input } from '@/components/ui/input'
 import { Slider } from '@/components/ui/slider'
 import { Textarea } from '@/components/ui/textarea'
 
+import { generateImage } from '@/app/actions'
 import { COLORS, RESOLUTIONS } from '@/app/constants'
 
+import { AuthModal } from './auth-modal'
 import { Generate, Loader, X } from './icons'
 import { Checkbox } from './ui/checkbox'
 
@@ -41,7 +44,13 @@ export function ImageGeneratorForm() {
   } = form
 
   const onSubmit = async (data: PromptForm) => {
-    console.log(data)
+    const res = await generateImage(data)
+
+    if (res.success) {
+      toast.success(res.message)
+    } else {
+      toast.error(res.message)
+    }
   }
 
   return (

@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Toaster } from 'react-hot-toast'
 
+import { createClient } from '@/lib/supabase/server'
 import { cn } from '@/lib/utils'
 
+import { AuthModal } from '@/components/auth-modal'
 import Navbar from '@/components/navbar'
 import Sidebar from '@/components/sidebar'
 
@@ -17,11 +20,16 @@ export const metadata: Metadata = {
   title: 'Ai Image Generator',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
   return (
     <html lang="en" className={cn('dark scroll-smooth', inter.className)}>
       <body
@@ -36,6 +44,8 @@ export default function RootLayout({
             {children}
           </main>
         </div>
+        {!user && <AuthModal />}
+        <Toaster />
       </body>
     </html>
   )
