@@ -1,5 +1,7 @@
 'use server'
 
+import { redirect } from 'next/navigation'
+
 import { createClient } from '@/lib/supabase/server'
 import { PromptForm } from '@/lib/validations'
 
@@ -19,15 +21,16 @@ export const generateImage = async (data: PromptForm) => {
 }
 export const loginWithGithub = async () => {
   const supabase = await createClient()
-  const { error } = await supabase.auth.signInWithOAuth({
+  const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'github',
     options: {
-      redirectTo:
-        'https://ai-image-generator-lovat.vercel.app/auth/v1/callback',
+      redirectTo: 'https://ai-image-generator-lovat.vercel.app/auth/callback',
     },
   })
   if (error) {
     return { success: false, message: error.message }
   }
-  return { success: true, message: 'Logged in' }
+  if (data.url) {
+    redirect(data.url)
+  }
 }

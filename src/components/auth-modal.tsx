@@ -27,11 +27,7 @@ export function AuthModal() {
   async function signInGithub() {
     const res = await loginWithGithub()
 
-    if (res.success) {
-      toast.success(res.message)
-    } else {
-      toast.error(res.message)
-    }
+    console.log('res', res)
   }
 
   return (
