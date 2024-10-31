@@ -1,28 +1,32 @@
-"use client";
-import React, { useState } from "react";
-import { Hamburger, Logo, SignIn, X } from "./icons";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { NAV_LINKS, NavLink } from "@/app/constants";
-import { Route } from "next";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+'use client'
+
+import { motion } from 'framer-motion'
+import { Route } from 'next'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import React, { useState } from 'react'
+
+import { cn } from '@/lib/utils'
+
+import { NAV_LINKS, NavLink } from '@/app/constants'
+
+import { Hamburger, Logo, SignIn, X } from './icons'
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+    setMenuOpen(!menuOpen)
+  }
 
   return (
-    <div className="relative md:hidden w-full h-[72px] border-b border-[#212936] flex items-center justify-between px-6">
+    <div className="relative flex h-[72px] w-full items-center justify-between border-b border-[#212936] px-6 md:hidden">
       <Link href="/">
         <Logo />
       </Link>
       <button
         onClick={toggleMenu}
-        className="p-2 rounded-lg bg-[#7c71ff] w-10 h-10 inline-flex items-center justify-center cursor-pointer transition-none duration-300 hover:opacity-90"
+        className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg bg-[#7c71ff] p-2 transition-none duration-300 hover:opacity-90"
       >
         <Hamburger />
       </button>
@@ -38,19 +42,19 @@ export default function Navbar() {
       )}
 
       <motion.div
-        initial={{ x: "100%" }}
-        animate={{ x: menuOpen ? "0%" : "100%" }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="fixed top-0 right-0 flex flex-col h-full w-[60%] max-w-[337px] py-6 px-8 bg-[#1c2230] shadow-lg"
+        initial={{ x: '100%' }}
+        animate={{ x: menuOpen ? '0%' : '100%' }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        className="fixed right-0 top-0 z-[99999] flex h-full w-[60%] max-w-[337px] flex-col bg-[#1c2230] px-8 py-6 shadow-lg"
       >
         <button
           onClick={toggleMenu}
-          className="  p-2 rounded-lg bg-[#7c71ff] w-8 h-8 inline-flex items-center justify-center"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[#7c71ff] p-2"
         >
           <X />
         </button>
 
-        <div className="flex flex-col gap-4 mt-8">
+        <div className="mt-8 flex flex-col gap-4">
           {NAV_LINKS.map((link: NavLink) => (
             <NavItem
               key={link.id}
@@ -62,14 +66,14 @@ export default function Navbar() {
         </div>
 
         <div className="mt-auto">
-          <button className="w-full inline-flex  text-sm font-medium tracking-[-0.49px] text-[#e4e4e7] bg-[#212936] p-[9px] gap-3  items-center rounded-lg">
+          <button className="inline-flex w-full items-center gap-3 rounded-lg bg-[#212936] p-[9px] text-sm font-medium tracking-[-0.49px] text-[#e4e4e7]">
             <SignIn />
             <p className="font-medium">Sign In</p>
           </button>
         </div>
       </motion.div>
     </div>
-  );
+  )
 }
 
 function NavItem({
@@ -77,18 +81,18 @@ function NavItem({
   label,
   icon,
 }: {
-  href: string;
-  label: string;
-  icon: React.ReactNode;
+  href: string
+  label: string
+  icon: React.ReactNode
 }) {
-  const pathname = usePathname();
-  const isActive = pathname === href;
+  const pathname = usePathname()
+  const isActive = pathname === href
   return (
     <Link
       className={cn(
-        "inline-flex  text-sm font-medium tracking-[-0.49px] text-[#e4e4e7] p-[9px] gap-3  items-center rounded-lg",
+        'inline-flex items-center gap-3 rounded-lg p-[9px] text-sm font-medium tracking-[-0.49px] text-[#e4e4e7]',
         {
-          "bg-[#7c71ff] ": isActive,
+          'bg-[#7c71ff]': isActive,
         }
       )}
       href={href as Route}
@@ -96,5 +100,5 @@ function NavItem({
       {icon}
       <p className="font-medium">{label}</p>
     </Link>
-  );
+  )
 }
