@@ -28,7 +28,8 @@ export function AuthModal() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        redirectTo: 'https://geetctincbvkdnaiupxp.supabase.co/auth/v1/callback',
+        redirectTo:
+          'https://ai-image-generator-lovat.vercel.app/auth/v1/callback',
       },
     })
 
