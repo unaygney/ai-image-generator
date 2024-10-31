@@ -23,7 +23,6 @@ import { Textarea } from '@/components/ui/textarea'
 import { generateImage } from '@/app/actions'
 import { COLORS, RESOLUTIONS } from '@/app/constants'
 
-import { AuthModal } from './auth-modal'
 import { Generate, Loader, X } from './icons'
 import { Checkbox } from './ui/checkbox'
 

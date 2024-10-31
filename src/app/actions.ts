@@ -5,7 +5,7 @@ import { PromptForm } from '@/lib/validations'
 
 export const generateImage = async (data: PromptForm) => {
   const supabase = await createClient()
-
+  console.log('data', data)
   //todo : get user
   const {
     data: { user },
