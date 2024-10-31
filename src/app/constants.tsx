@@ -27,4 +27,21 @@ export const NAV_LINKS = [
   },
 ] as const
 
+export const COLORS = [
+  { name: 'Red', value: 'red' },
+  { name: 'Orange', value: 'orange' },
+  { name: 'Green', value: 'green' },
+  { name: 'Blue', value: 'blue' },
+  { name: 'Purple', value: 'purple' },
+  { name: 'White', value: 'white' },
+] as const
+
+export const RESOLUTIONS = [
+  { name: '1024x1024 (1:1)', value: '1024x1024 (1:1)' },
+  { name: '1152x896 (9:7)', value: '1152x896 (9:7)' },
+  { name: '896x1152 (7:9)', value: '896x1152 (7:9)' },
+  { name: '1344x768 (7:4)', value: '1344x768 (7:4)' },
+  { name: '768x1344 (4:7)', value: '768x1344 (4:7)' },
+] as const
+
 export type NavLink = (typeof NAV_LINKS)[number]
