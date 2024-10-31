@@ -27,7 +27,11 @@ export function AuthModal() {
   async function signInWithGithub() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'github',
+      options: {
+        redirectTo: 'https://geetctincbvkdnaiupxp.supabase.co/auth/v1/callback',
+      },
     })
+
     console.log(data, error)
   }
 
