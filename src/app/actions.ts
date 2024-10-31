@@ -28,7 +28,7 @@ export const loginWithGithub = async () => {
     },
   })
   if (error) {
-    return { success: false, message: error.message }
+    throw new Error(error.message)
   }
   if (data.url) {
     redirect(data.url)
