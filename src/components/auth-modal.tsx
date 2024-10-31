@@ -1,6 +1,6 @@
 'use client'
 
-import { GitHubLogoIcon } from '@radix-ui/react-icons'
+import { GitHubLogoIcon, TwitterLogoIcon } from '@radix-ui/react-icons'
 import { useState } from 'react'
 
 import { createClient } from '@/lib/supabase/client'
@@ -36,6 +36,16 @@ export function AuthModal() {
     console.log(data, error)
   }
 
+  async function SignInWithX() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'twitter',
+      options: {
+        redirectTo:
+          'https://ai-image-generator-lovat.vercel.app/auth/v1/callback',
+      },
+    })
+  }
+
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogOverlay className="bg-black bg-opacity-50 blur" />
@@ -56,6 +66,13 @@ export function AuthModal() {
             >
               <GitHubLogoIcon />
               Sign in with GitHub
+            </Button>
+            <Button
+              className="h-12 w-full rounded-lg bg-[#7c71ff] text-white hover:bg-[#7c71ff] hover:bg-opacity-85"
+              onClick={signInWithGithub}
+            >
+              <TwitterLogoIcon />
+              Sign in with X
             </Button>
           </AlertDialogDescription>
         </AlertDialogHeader>
