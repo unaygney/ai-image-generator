@@ -44,6 +44,8 @@ export function AuthModal() {
           'https://ai-image-generator-lovat.vercel.app/auth/v1/callback',
       },
     })
+
+    console.log(data, error)
   }
 
   return (
@@ -69,7 +71,7 @@ export function AuthModal() {
             </Button>
             <Button
               className="h-12 w-full rounded-lg bg-[#7c71ff] text-white hover:bg-[#7c71ff] hover:bg-opacity-85"
-              onClick={signInWithGithub}
+              onClick={SignInWithX}
             >
               <TwitterLogoIcon />
               Sign in with X
