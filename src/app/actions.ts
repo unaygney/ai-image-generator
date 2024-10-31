@@ -27,8 +27,9 @@ export const loginWithGithub = async () => {
       redirectTo: 'https://ai-image-generator-lovat.vercel.app/auth/callback',
     },
   })
+
   if (error) {
-    throw new Error(error.message)
+    console.log(error)
   }
   if (data.url) {
     redirect(data.url)

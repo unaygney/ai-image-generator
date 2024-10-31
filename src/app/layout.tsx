@@ -33,7 +33,11 @@ export default async function RootLayout({
   console.log('user', user)
 
   return (
-    <html lang="en" className={cn('dark scroll-smooth', inter.className)}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn('dark scroll-smooth', inter.className)}
+    >
       <body
         className={cn('h-screen w-full bg-[#121826] antialiased', {
           'debug-screens': process.env.NODE_ENV === 'development',

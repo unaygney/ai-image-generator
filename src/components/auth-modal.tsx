@@ -1,6 +1,6 @@
 'use client'
 
-import { GitHubLogoIcon } from '@radix-ui/react-icons'
+import { GitHubLogoIcon, TwitterLogoIcon } from '@radix-ui/react-icons'
 import { useState } from 'react'
 
 import {
@@ -24,9 +24,7 @@ export function AuthModal() {
   const [open, setOpen] = useState(true)
 
   async function signInGithub() {
-    const res = await loginWithGithub()
-
-    console.log('res', res)
+    await loginWithGithub()
   }
 
   return (
@@ -50,18 +48,8 @@ export function AuthModal() {
               <GitHubLogoIcon />
               Sign in with GitHub
             </Button>
-            {/* <Button
-              className="h-12 w-full rounded-lg bg-[#7c71ff] text-white hover:bg-[#7c71ff] hover:bg-opacity-85"
-              onClick={SignInWithX}
-            >
-              <TwitterLogoIcon />
-              Sign in with X
-            </Button> */}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogAction asChild></AlertDialogAction>
-        </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
   )
