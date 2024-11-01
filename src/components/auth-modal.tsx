@@ -1,7 +1,6 @@
 'use client'
 
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
-import { useState } from 'react'
 
 import {
   AlertDialog,
@@ -17,16 +16,17 @@ import { Button } from '@/components/ui/button'
 import { loginWithGithub } from '@/app/actions'
 
 import { X } from './icons'
+import { useAuthModal } from './providers'
 
 export function AuthModal() {
-  const [open, setOpen] = useState(true)
+  const { isOpen, setIsOpen } = useAuthModal()
 
   async function signInGithub() {
     await loginWithGithub()
   }
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogOverlay className="bg-black bg-opacity-50 blur" />
       <AlertDialogContent className="bg-[#121826] text-white">
         <AlertDialogCancel asChild>

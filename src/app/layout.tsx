@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 
 import { AuthModal } from '@/components/auth-modal'
 import Navbar from '@/components/navbar'
+import Providers from '@/components/providers'
 import Sidebar from '@/components/sidebar'
 
 import './globals.css'
@@ -30,28 +31,25 @@ export default async function RootLayout({
     data: { user },
   } = await supabase.auth.getUser()
 
-  console.log('user', user)
-
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn('dark scroll-smooth', inter.className)}
-    >
+    <html lang="en" className={cn('dark scroll-smooth', inter.className)}>
       <body
+        suppressHydrationWarning
         className={cn('h-screen w-full bg-[#121826] antialiased', {
           'debug-screens': process.env.NODE_ENV === 'development',
         })}
       >
-        <div className="flex h-full w-full flex-col md:flex-row">
-          <Navbar />
-          <Sidebar />
-          <main className="flex-1 overflow-scroll px-8 py-[52px] lg:px-[72px]">
-            {children}
-          </main>
-        </div>
-        {!user && <AuthModal />}
-        <Toaster />
+        <Providers>
+          <div className="flex h-full w-full flex-col md:flex-row">
+            <Navbar />
+            <Sidebar />
+            <main className="flex-1 overflow-scroll px-8 py-[52px] lg:px-[72px]">
+              {children}
+            </main>
+          </div>
+          {!user && <AuthModal />}
+          <Toaster />
+        </Providers>
       </body>
     </html>
   )

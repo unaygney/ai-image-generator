@@ -10,7 +10,8 @@ import { cn } from '@/lib/utils'
 
 import { NAV_LINKS, NavLink } from '@/app/constants'
 
-import { Hamburger, Logo, SignIn, X } from './icons'
+import { Hamburger, Logo, X } from './icons'
+import SignInOrOutButton from './signout-button'
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -45,7 +46,7 @@ export default function Navbar() {
         initial={{ x: '100%' }}
         animate={{ x: menuOpen ? '0%' : '100%' }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="fixed right-0 top-0 z-[99999] flex h-full w-[60%] max-w-[337px] flex-col bg-[#1c2230] px-8 py-6 shadow-lg"
+        className="fixed right-0 top-0 z-[30] flex h-full w-[60%] max-w-[337px] flex-col bg-[#1c2230] px-8 py-6 shadow-lg"
       >
         <button
           onClick={toggleMenu}
@@ -65,12 +66,13 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="mt-auto">
+        {/* <div className="mt-auto">
           <button className="inline-flex w-full items-center gap-3 rounded-lg bg-[#212936] p-[9px] text-sm font-medium tracking-[-0.49px] text-[#e4e4e7]">
             <SignIn />
             <p className="font-medium">Sign In</p>
           </button>
-        </div>
+        </div> */}
+        <SignInOrOutButton isNavbar />
       </motion.div>
     </div>
   )

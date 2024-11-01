@@ -16,7 +16,8 @@ import {
 
 import { NAV_LINKS, NavLink } from '@/app/constants'
 
-import { Logo, SignIn } from './icons'
+import { Logo } from './icons'
+import SignInOrOutButton from './signout-button'
 
 export default function Sidebar() {
   return (
@@ -36,11 +37,7 @@ export default function Sidebar() {
         ))}
       </div>
 
-      <div className="mb-4 mt-auto">
-        <button className="inline-flex size-10 items-center justify-center rounded-lg bg-[#212936]">
-          <SignIn />
-        </button>
-      </div>
+      <SignInOrOutButton />
     </div>
   )
 }
