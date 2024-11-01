@@ -1,6 +1,8 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import Image from 'next/image'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -27,6 +29,8 @@ import { Generate, Loader, X } from './icons'
 import { Checkbox } from './ui/checkbox'
 
 export function ImageGeneratorForm() {
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
+
   const form = useForm<PromptForm>({
     resolver: zodResolver(promptFormSchema),
     defaultValues: {
@@ -44,9 +48,10 @@ export function ImageGeneratorForm() {
 
   const onSubmit = async (data: PromptForm) => {
     const res = await generateImage(data)
-
+    console.log(res)
     if (res.success) {
       toast.success(res.message)
+      setImageUrl(res.imageUrl!)
     } else {
       toast.error(res.message)
     }
@@ -225,8 +230,19 @@ export function ImageGeneratorForm() {
           </form>
         </Form>
       </div>
-      <div className="relative flex h-full w-full overflow-hidden rounded-lg border-4 border-[#212936] lg:h-[511px] lg:max-w-[511px]">
-        <div className="h-full w-full">test</div>
+      <div className="relative flex h-[511px] w-full overflow-hidden rounded-lg border-4 border-[#212936] lg:max-w-[511px]">
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt="Generated Image"
+            className="h-full w-full object-cover"
+            fill
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center text-gray-500">
+            No image generated
+          </div>
+        )}
       </div>
     </div>
   )

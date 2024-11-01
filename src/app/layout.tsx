@@ -35,7 +35,7 @@ export default async function RootLayout({
     <html lang="en" className={cn('dark scroll-smooth', inter.className)}>
       <body
         suppressHydrationWarning
-        className={cn('h-screen w-full bg-[#121826] antialiased', {
+        className={cn('min-h-screen w-full bg-[#121826] antialiased', {
           'debug-screens': process.env.NODE_ENV === 'development',
         })}
       >
