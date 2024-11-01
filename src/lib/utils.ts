@@ -25,3 +25,7 @@ export function getInitials(fullName: string) {
     return nameParts[0][0].toUpperCase() + nameParts[1][0].toUpperCase()
   }
 }
+export async function blobToBase64(blob: Blob): Promise<string> {
+  const buffer = Buffer.from(await blob.arrayBuffer())
+  return `data:image/png;base64,${buffer.toString('base64')}`
+}
