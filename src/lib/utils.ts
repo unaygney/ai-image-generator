@@ -16,3 +16,12 @@ export function getColorHex(value: string) {
   }
   return colorMap[value as keyof typeof colorMap] || '#000000'
 }
+export function getInitials(fullName: string) {
+  const nameParts = fullName.trim().split(' ')
+
+  if (nameParts.length === 1) {
+    return nameParts[0][0].toUpperCase()
+  } else {
+    return nameParts[0][0].toUpperCase() + nameParts[1][0].toUpperCase()
+  }
+}
