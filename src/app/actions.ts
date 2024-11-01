@@ -2,12 +2,13 @@
 
 import { redirect } from 'next/navigation'
 
+import { hf } from '@/lib/hf'
 import { createClient } from '@/lib/supabase/server'
+import { blobToBase64 } from '@/lib/utils'
 import { PromptForm } from '@/lib/validations'
 
 export const generateImage = async (data: PromptForm) => {
   const supabase = await createClient()
-  console.log('data', data)
   //todo : get user
   const {
     data: { user },
@@ -17,7 +18,22 @@ export const generateImage = async (data: PromptForm) => {
     return { success: false, message: 'Unauthorized' }
   }
 
-  return { success: true, message: 'Image generated' }
+  const [width, height] = data.resolution.split(' ')[0].split('x').map(Number)
+
+  const imgBlob = await hf.textToImage({
+    inputs: data.prompt,
+    model: 'stabilityai/stable-diffusion-2',
+    parameters: {
+      negative_prompt: data?.negativePrompt,
+      height,
+      width,
+      guidance_scale: data.guidance,
+    },
+  })
+
+  const imageUrl = await blobToBase64(imgBlob)
+
+  return { success: true, message: 'Image generated', imageUrl }
 }
 export const loginWithGithub = async () => {
   const supabase = await createClient()
