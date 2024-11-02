@@ -40,7 +40,7 @@ export const loginWithGithub = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'github',
     options: {
-      redirectTo: 'http://localhost:3000/auth/callback',
+      redirectTo: 'https://ai-image-generator-lovat.vercel.app/auth/callback',
     },
   })
 
