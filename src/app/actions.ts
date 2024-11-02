@@ -7,8 +7,6 @@ import { createClient } from '@/lib/supabase/server'
 import { blobToBase64 } from '@/lib/utils'
 import { PromptForm } from '@/lib/validations'
 
-export const maxDuration = 60
-
 export const generateImage = async (data: PromptForm) => {
   const supabase = await createClient()
   //todo : get user
