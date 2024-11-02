@@ -20,6 +20,7 @@ export const generateImage = async (data: PromptForm) => {
 
   const [width, height] = data.resolution.split(' ')[0].split('x').map(Number)
 
+  //todo : add colors with inputs
   const imgBlob = await hf.textToImage({
     inputs: data.prompt,
     model: 'stabilityai/stable-diffusion-2',
@@ -32,6 +33,9 @@ export const generateImage = async (data: PromptForm) => {
   })
 
   const imageUrl = await blobToBase64(imgBlob)
+
+  //todo : save image to db
+  //todo : save promts to db
 
   return { success: true, message: 'Image generated', imageUrl }
 }
