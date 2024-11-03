@@ -29,3 +29,14 @@ export async function blobToBase64(blob: Blob): Promise<string> {
   const buffer = Buffer.from(await blob.arrayBuffer())
   return `data:image/png;base64,${buffer.toString('base64')}`
 }
+export function getAspectRatio(width: number, height: number): string {
+  function gcd(a: number, b: number): number {
+    return b === 0 ? a : gcd(b, a % b)
+  }
+
+  const divisor = gcd(width, height)
+  const aspectWidth = width / divisor
+  const aspectHeight = height / divisor
+
+  return `${aspectWidth}/${aspectHeight}`
+}
