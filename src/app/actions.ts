@@ -7,6 +7,7 @@ import { createClient } from '@/lib/supabase/server'
 import { blobToBase64 } from '@/lib/utils'
 import { PromptForm } from '@/lib/validations'
 
+import { URL } from './config'
 import { db } from '@/db'
 import { promptsTable } from '@/db/schema'
 
@@ -42,9 +43,11 @@ export const generateImage = async (data: PromptForm) => {
       },
     })
 
-    const { data: imageUpload, error: uploadError } = await supabase.storage
+    const imagePath = `/image-${user.id}-${Date.now()}.png`
+
+    const { error: uploadError } = await supabase.storage
       .from('prompt_images')
-      .upload(`/image-${user.id}-${Date.now()}.png`, imgBlob)
+      .upload(imagePath, imgBlob)
 
     if (uploadError) {
       console.error(uploadError)
@@ -55,12 +58,16 @@ export const generateImage = async (data: PromptForm) => {
       }
     }
 
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from('prompt_images').getPublicUrl(imagePath)
+
     const imageUrl = await blobToBase64(imgBlob)
 
     await db.insert(promptsTable).values({
       user_id: user.id,
       promt: data.prompt,
-      image_url: imageUpload.path,
+      image_url: publicUrl,
       width,
       height,
       guidance: data.guidance,
@@ -82,7 +89,7 @@ export const loginWithGithub = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'github',
     options: {
-      redirectTo: 'https://ai-image-generator-lovat.vercel.app/auth/callback',
+      redirectTo: `${URL}/auth/callback`,
     },
   })
 
