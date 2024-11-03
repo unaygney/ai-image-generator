@@ -42,18 +42,22 @@ export const generateImage = async (data: PromptForm) => {
       },
     })
 
-    // const { data: imageUpload, error: uploadError } = await supabase.storage
-    //   .from('prompt_images')
-    //   .upload(`/image-${user.id}-${Date.now()}.png`, imgBlob)
+    const imgBuffer = Buffer.from(await imgBlob.arrayBuffer())
 
-    // if (uploadError) {
-    //   console.error(uploadError)
-    //   return {
-    //     success: false,
-    //     message: 'Error uploading image',
-    //     error: uploadError.message,
-    //   }
-    // }
+    const { data: imageUpload, error: uploadError } = await supabase.storage
+      .from('prompt_images')
+      .upload(`/image-${user.id}-${Date.now()}.png`, imgBuffer, {
+        contentType: 'image/png',
+      })
+
+    if (uploadError) {
+      console.error(uploadError)
+      return {
+        success: false,
+        message: 'Error uploading image',
+        error: uploadError.message,
+      }
+    }
 
     const imageUrl = await blobToBase64(imgBlob)
 
