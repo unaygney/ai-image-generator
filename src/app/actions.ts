@@ -43,10 +43,8 @@ export const generateImage = async (data: PromptForm) => {
     })
 
     const { data: imageUpload, error: uploadError } = await supabase.storage
-      .from('prompt_image')
-      .upload(`/image-${user.id}-${Date.now()}.png`, imgBlob, {
-        contentType: 'image/png',
-      })
+      .from('prompt_images')
+      .upload(`/image-${user.id}-${Date.now()}.png`, imgBlob)
 
     if (uploadError) {
       console.error(uploadError)
@@ -60,7 +58,7 @@ export const generateImage = async (data: PromptForm) => {
     const imageUrl = await blobToBase64(imgBlob)
 
     await db.insert(promptsTable).values({
-      user_id: user.id,
+      user_id: '147e73d3-76bb-4223-956d-c44cd854e415',
       promt: data.prompt,
       image_url: imageUpload.path,
       width,
