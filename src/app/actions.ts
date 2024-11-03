@@ -42,13 +42,9 @@ export const generateImage = async (data: PromptForm) => {
       },
     })
 
-    const imgFile = new File([imgBlob], `image-${user.id}-${Date.now()}.png`, {
-      type: 'image/png',
-    })
-
     const { data: imageUpload, error: uploadError } = await supabase.storage
       .from('prompt_images')
-      .upload(`/image-${user.id}-${Date.now()}.png`, imgFile)
+      .upload(`/image-${user.id}-${Date.now()}.png`, imgBlob)
 
     if (uploadError) {
       console.error(uploadError)
