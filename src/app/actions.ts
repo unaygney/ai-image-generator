@@ -58,7 +58,7 @@ export const generateImage = async (data: PromptForm) => {
     const imageUrl = await blobToBase64(imgBlob)
 
     await db.insert(promptsTable).values({
-      user_id: '147e73d3-76bb-4223-956d-c44cd854e415',
+      user_id: user.id,
       promt: data.prompt,
       image_url: 'test',
       width,
