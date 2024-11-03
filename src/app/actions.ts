@@ -49,8 +49,12 @@ export const generateImage = async (data: PromptForm) => {
       })
 
     if (uploadError) {
-      console.log(uploadError)
-      return { success: false, message: 'Error uploading image' }
+      console.error(uploadError)
+      return {
+        success: false,
+        message: 'Error uploading image',
+        error: uploadError.message,
+      }
     }
 
     const imageUrl = await blobToBase64(imgBlob)
