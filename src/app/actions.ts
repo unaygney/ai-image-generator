@@ -12,61 +12,69 @@ import { promptsTable } from '@/db/schema'
 
 export const generateImage = async (data: PromptForm) => {
   const supabase = await createClient()
-  //todo : get user
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
 
-  if (!user) {
-    return { success: false, message: 'Unauthorized' }
-  }
+  try {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
 
-  const [width, height] = data.resolution.split(' ')[0].split('x').map(Number)
-  const colorsString =
-    data.colors && data.colors.length > 0 ? data.colors.join(',') : ''
+    if (!user) {
+      return { success: false, message: 'Unauthorized' }
+    }
 
-  const promptWithColors = colorsString
-    ? `${data.prompt}, ${colorsString}`
-    : data.prompt
+    const [width, height] = data.resolution.split(' ')[0].split('x').map(Number)
 
-  //todo : add colors with inputs ✅
-  const imgBlob = await hf.textToImage({
-    inputs: promptWithColors,
-    model: 'stabilityai/stable-diffusion-2',
-    parameters: {
-      negative_prompt: data?.negativePrompt,
-      height,
-      width,
-      guidance_scale: data.guidance,
-    },
-  })
+    const colorsString =
+      data.colors && data.colors.length > 0 ? data.colors.join(',') : ''
 
-  //todo : save image to db ✅
-  const { data: imageUpload, error: uploadError } = await supabase.storage
-    .from('promt_image')
-    .upload(`/image-${user.id}-${Date.now()}.png`, imgBlob, {
-      contentType: 'image/png',
+    const promptWithColors = colorsString
+      ? `${data.prompt}, ${colorsString}`
+      : data.prompt
+
+    const imgBlob = await hf.textToImage({
+      inputs: promptWithColors,
+      model: 'stabilityai/stable-diffusion-2',
+      parameters: {
+        negative_prompt: data?.negativePrompt,
+        height,
+        width,
+        guidance_scale: data.guidance,
+      },
     })
-  if (uploadError) {
-    console.log(uploadError)
-    return { success: false, message: 'Error uploading image' }
+
+    const { data: imageUpload, error: uploadError } = await supabase.storage
+      .from('prompt_image')
+      .upload(`/image-${user.id}-${Date.now()}.png`, imgBlob, {
+        contentType: 'image/png',
+      })
+
+    if (uploadError) {
+      console.log(uploadError)
+      return { success: false, message: 'Error uploading image' }
+    }
+
+    const imageUrl = await blobToBase64(imgBlob)
+
+    await db.insert(promptsTable).values({
+      user_id: user.id,
+      promt: data.prompt,
+      image_url: imageUpload.path,
+      width,
+      height,
+      guidance: data.guidance,
+      colors: data.colors,
+    })
+
+    return { success: true, message: 'Image generated', imageUrl }
+  } catch (error) {
+    console.error('Error in generateImage:', error)
+    return {
+      success: false,
+      message: 'An error occurred while generating the image',
+    }
   }
-
-  const imageUrl = await blobToBase64(imgBlob)
-
-  //todo : save promts to db and image url ✅
-  await db.insert(promptsTable).values({
-    user_id: user.id,
-    promt: data.prompt,
-    image_url: imageUpload.fullPath,
-    width,
-    height,
-    guidance: data.guidance,
-    colors: data.colors,
-  })
-
-  return { success: true, message: 'Image generated', imageUrl }
 }
+
 export const loginWithGithub = async () => {
   const supabase = await createClient()
   const { data, error } = await supabase.auth.signInWithOAuth({
