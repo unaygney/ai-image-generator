@@ -67,6 +67,7 @@ export const generateImage = async (data: PromptForm) => {
     await db.insert(promptsTable).values({
       user_id: user.id,
       promt: data.prompt,
+      negative_promt: data.negativePrompt,
       image_url: publicUrl,
       width,
       height,

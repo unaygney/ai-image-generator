@@ -15,6 +15,13 @@
       "when": 1730628311338,
       "tag": "0001_awesome_luke_cage",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1730729083114,
+      "tag": "0002_misty_clea",
+      "breakpoints": true
     }
   ]
 }

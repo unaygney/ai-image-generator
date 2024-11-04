@@ -8,10 +8,11 @@ import {
   uuid,
 } from 'drizzle-orm/pg-core'
 
-export const promptsTable = pgTable('promt', {
+export const promptsTable = pgTable('promts', {
   id: serial('id').primaryKey(),
   user_id: uuid('user_id').notNull(),
-  promt: text('content').notNull(),
+  promt: text('promt').notNull(),
+  negative_promt: text('negative_promt'),
   image_url: text('image_url').notNull(),
   width: integer('width'),
   height: integer('height'),
