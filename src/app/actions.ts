@@ -73,6 +73,8 @@ export const generateImage = async (data: PromptForm) => {
       height,
       guidance: data.guidance,
       colors: data.colors,
+      user_name: user.user_metadata.full_name,
+      user_avatar: user.user_metadata.avatar_url,
     })
 
     return { success: true, message: 'Image generated', imageUrl }

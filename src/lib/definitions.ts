@@ -1,4 +1,4 @@
-import { promptsTable } from '@/db/schema'
+import { bookmarks, promptsTable } from '@/db/schema'
 
 export interface AuthModalContextType {
   isOpen: boolean
@@ -7,3 +7,4 @@ export interface AuthModalContextType {
   closeModal: () => void
 }
 export type Promt = typeof promptsTable.$inferSelect
+export type Bookmark = typeof bookmarks.$inferSelect
