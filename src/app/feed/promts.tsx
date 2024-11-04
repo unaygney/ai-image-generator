@@ -1,21 +1,43 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
+import dynamic from 'next/dynamic'
 import React from 'react'
 
-import ImageWrapper from '@/components/image-wrapper'
+import { Loader } from '@/components/icons'
 
-import { getPrompts } from './actions'
+import { getBookmarks, getPrompts } from './actions'
+
+const ImageWrapper = dynamic(() => import('@/components/image-wrapper'), {
+  ssr: false,
+})
 
 export default function Prompts() {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['posts'],
     queryFn: () => getPrompts(),
   })
 
+  const { data: bookmarks } = useQuery({
+    queryKey: ['bookmarks'],
+    queryFn: () => getBookmarks(),
+  })
+
+  const userBookmark = bookmarks?.success ? bookmarks.bookmarks : undefined
+
+  if (isLoading) {
+    return (
+      <div className="flex h-96 w-full items-center justify-center">
+        <Loader className="text-white" />
+      </div>
+    )
+  }
+
   return (
-    <div className="grid min-h-screen w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {data?.map((post) => <ImageWrapper key={post.id} post={post} />)}
+    <div className="w-full columns-1 gap-4 space-y-6 sm:columns-2 md:columns-3 lg:columns-4 lg:gap-6">
+      {data?.map((post) => (
+        <ImageWrapper key={post.id} bookmarks={userBookmark} post={post} />
+      ))}
     </div>
   )
 }
