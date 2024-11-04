@@ -6,6 +6,7 @@ import { getAspectRatio } from '@/lib/utils'
 
 export default function ImageWrapper({ post }: { post: Promt }) {
   const ratio = getAspectRatio(post.width!, post.height!)
+  console.log(ratio)
 
   return (
     <div className={`relative w-full`}>
