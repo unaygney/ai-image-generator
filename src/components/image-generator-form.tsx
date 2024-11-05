@@ -28,13 +28,17 @@ import { COLORS, RESOLUTIONS } from '@/app/constants'
 import { Generate, Loader, X } from './icons'
 import { Checkbox } from './ui/checkbox'
 
-export function ImageGeneratorForm() {
+export function ImageGeneratorForm({
+  promt,
+}: {
+  promt: string | string[] | undefined
+}) {
   const [imageUrl, setImageUrl] = useState<string | null>(null)
 
   const form = useForm<PromptForm>({
     resolver: zodResolver(promptFormSchema),
     defaultValues: {
-      prompt: '',
+      prompt: Array.isArray(promt) ? promt.join(',') : (promt ?? ''),
       negativePrompt: '',
       colors: [],
       resolution: '1024x1024 (1:1)',

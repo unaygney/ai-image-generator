@@ -10,13 +10,21 @@ import SearchBar from '@/components/search-bar'
 import { getBookmarks, getPrompts } from './actions'
 import Prompts from './promts'
 
-export default async function FeedPage() {
+export default async function FeedPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
   const queryClient = new QueryClient()
+
+  const search = (await searchParams).search ?? ''
+  const fetchPrompts = () =>
+    getPrompts(Array.isArray(search) ? search.join(' ') : search)
 
   await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: ['posts'],
-      queryFn: getPrompts,
+      queryKey: ['posts', search],
+      queryFn: fetchPrompts,
     }),
     queryClient.prefetchQuery({
       queryKey: ['bookmarks'],
@@ -27,7 +35,7 @@ export default async function FeedPage() {
     <div className="flex flex-col gap-10">
       <SearchBar />
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <Prompts />
+        <Prompts search={search} />
       </HydrationBoundary>
     </div>
   )

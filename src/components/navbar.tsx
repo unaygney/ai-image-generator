@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Route } from 'next'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -19,6 +19,18 @@ export default function Navbar() {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
   }
+
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [menuOpen])
 
   return (
     <div className="relative flex h-[72px] w-full items-center justify-between border-b border-[#212936] px-6 md:hidden">
@@ -38,7 +50,7 @@ export default function Navbar() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.5 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black backdrop-blur-sm"
+          className="fixed inset-0 z-10 bg-black bg-opacity-80 backdrop-blur-3xl"
         />
       )}
 

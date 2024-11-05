@@ -12,10 +12,15 @@ const ImageWrapper = dynamic(() => import('@/components/image-wrapper'), {
   ssr: false,
 })
 
-export default function Prompts() {
+export default function Prompts({
+  search,
+}: {
+  search: string | string[] | undefined
+}) {
   const { data, isLoading } = useQuery({
-    queryKey: ['posts'],
-    queryFn: () => getPrompts(),
+    queryKey: ['posts', search],
+    queryFn: () =>
+      getPrompts(Array.isArray(search) ? search.join(' ') : search),
   })
 
   const { data: bookmarks } = useQuery({
