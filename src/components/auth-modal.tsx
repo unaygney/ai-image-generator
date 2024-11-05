@@ -1,6 +1,10 @@
 'use client'
 
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
+import { useQuery } from '@tanstack/react-query'
+import { useEffect } from 'react'
+
+import { createClient } from '@/lib/supabase/client'
 
 import {
   AlertDialog,
@@ -20,6 +24,29 @@ import { useAuthModal } from './providers'
 
 export function AuthModal() {
   const { isOpen, setIsOpen } = useAuthModal()
+  const supabase = createClient()
+
+  const getUser = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+    return user
+  }
+
+  const { data: isUserPresent } = useQuery({
+    queryKey: ['user'],
+    queryFn: getUser,
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    enabled: !isOpen,
+  })
+
+  useEffect(() => {
+    if (!isUserPresent?.id) {
+      setIsOpen(true)
+    }
+  }, [isUserPresent])
 
   async function signInGithub() {
     await loginWithGithub()
