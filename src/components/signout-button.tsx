@@ -29,7 +29,13 @@ export default function SignInOrOutButton({ isNavbar = false }) {
     return user
   }
 
-  const { data, isLoading } = useQuery({ queryKey: ['user'], queryFn: getUser })
+  const { data, isLoading } = useQuery({
+    queryKey: ['user'],
+    queryFn: getUser,
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+  })
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut()
