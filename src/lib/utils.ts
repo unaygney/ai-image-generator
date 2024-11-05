@@ -40,3 +40,12 @@ export function getAspectRatio(width: number, height: number): string {
 
   return `${aspectWidth}/${aspectHeight}`
 }
+export function formatDate(date: Date | null) {
+  if (!date) return 'Null'
+
+  return new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(date)
+}

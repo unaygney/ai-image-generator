@@ -1,17 +1,21 @@
 'use server'
 
-import { eq } from 'drizzle-orm'
+import { eq, sql } from 'drizzle-orm'
 
 import { createClient } from '@/lib/supabase/server'
 
 import { db } from '@/db'
 import { bookmarks, promptsTable } from '@/db/schema'
 
-export const getPrompts = async () => {
-  const promts = await db.select().from(promptsTable)
+export const getPrompts = async (search = '') => {
+  const prompts = await db
+    .select()
+    .from(promptsTable)
+    .where(search ? sql`promt ILIKE ${'%' + search + '%'}` : undefined)
 
-  return promts
+  return prompts
 }
+
 export const addBookmark = async (id: string) => {
   const supabase = await createClient()
   const {
