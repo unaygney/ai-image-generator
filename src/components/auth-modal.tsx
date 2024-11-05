@@ -46,7 +46,7 @@ export function AuthModal() {
     if (!isUserPresent?.id) {
       setIsOpen(true)
     }
-  }, [isUserPresent])
+  }, [isUserPresent, setIsOpen])
 
   async function signInGithub() {
     await loginWithGithub()
