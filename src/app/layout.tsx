@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils'
 import { AuthModal } from '@/components/auth-modal'
 import Navbar from '@/components/navbar'
 import Providers from '@/components/providers'
+import RealTimeListener from '@/components/real-time-listener'
 import Sidebar from '@/components/sidebar'
 
 import './globals.css'
@@ -48,6 +49,7 @@ export default async function RootLayout({
             </main>
           </div>
           {!user && <AuthModal />}
+          <RealTimeListener />
           <Toaster />
         </Providers>
       </body>
