@@ -10,7 +10,7 @@ export default async function Home({
   const promt = (await searchParams).promt ?? undefined
 
   return (
-    <div className="flex h-full w-full items-center justify-center">
+    <div className="flex items-center justify-center">
       <ImageGeneratorForm promt={promt} />
     </div>
   )
