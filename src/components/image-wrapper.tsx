@@ -87,9 +87,9 @@ export default function ImageWrapper({
             />
           </div>
         </DialogTrigger>
-        <DialogContent className="min-h-[592px] w-full max-w-[820px] overflow-scroll bg-[#121826] px-6">
+        <DialogContent className="h-[400px] w-full max-w-[820px] overflow-scroll bg-[#121826] px-6 lg:min-h-[592px]">
           <DialogClose asChild>
-            <button className="absolute right-4 top-4 inline-flex size-10 items-center justify-center rounded-lg bg-[#212936]">
+            <button className="absolute right-4 top-4 z-10 inline-flex size-10 items-center justify-center rounded-lg bg-[#212936]">
               <X />
             </button>
           </DialogClose>
